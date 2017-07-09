@@ -1,6 +1,8 @@
-FROM shuaicj/spark
+FROM shuaicj/spark:2.1.1
 MAINTAINER shuaicj <shuaicj@gmail.com>
 
-RUN rm -rf /var/cache/apk/*
+RUN cd ${SPARK_HOME}/conf && \
+    cp spark-defaults.conf.template spark-defaults.conf && \
+    printf "\n\nspark.driver.port    9099\n" >> spark-defaults.conf
 
-EXPOSE 4040 6066 7077 7337 8080 9000
+EXPOSE 4040 9099
